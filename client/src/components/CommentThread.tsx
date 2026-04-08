@@ -3,9 +3,14 @@ import Comment from "./Comment";
 
 interface CommentThreadProps {
   comment: CommentWithReplies;
+  onMoreReplies: (commentId: string) => void;
 }
 
-const CommentThread = ({ comment }: CommentThreadProps) => {
+const CommentThread = ({ comment, onMoreReplies }: CommentThreadProps) => {
+  const handleMoreReplies = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    onMoreReplies(comment.id);
+  };
   return (
     <div className="parent-comment">
       <Comment
@@ -31,12 +36,29 @@ const CommentThread = ({ comment }: CommentThreadProps) => {
             />
           );
         })}
-        <a href="#" className="show_more">
-          Show More Replies (2)
-        </a>
+        {comment.replies_count === comment.replies.length ? null : (
+          <a href="#" className="show_more" onClick={handleMoreReplies}>
+            Show More Replies ({comment.replies_count - 1})
+          </a>
+        )}
       </div>
     </div>
   );
 };
 
 export default CommentThread;
+
+// const handleMoreReplies = async (e: React.SyntheticEvent) => {
+//   e.preventDefault();
+//   const { data } = await axios.get(
+//     `/api/comment_replies?comment_id=${comment.id}`,
+//   );
+//   setComments((prevComments) => {
+//     return prevComments.map((c) => {
+//       if (c.id === comment.id) {
+//         return { ...c, replies: c.replies.concat(data) };
+//       }
+//       return c;
+//     });
+//   });
+// };
