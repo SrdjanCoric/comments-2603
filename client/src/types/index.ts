@@ -7,11 +7,13 @@ const commentSchema = z.object({
   postedAt: z.number(),
 });
 
+// id, author, body, postedAt, updatedAt
+
 export const replySchema = commentSchema.extend({
   comment_id: z.string(),
 });
 
-export const commentWithReplies = commentSchema.extend({
+export const commentWithRepliesSchema = commentSchema.extend({
   replies_count: z.number(),
   replies: z.array(replySchema),
 });
@@ -21,13 +23,13 @@ const newCommentSchema = commentSchema.pick({
   body: true,
 });
 
-export const commentsWithReplies = z.array(commentWithReplies);
+export const commentsWithRepliesSchema = z.array(commentWithRepliesSchema);
 
 export const repliesSchema = z.array(replySchema);
 
 export type Comment = z.infer<typeof commentSchema>;
 export type Reply = z.infer<typeof replySchema>;
-export type CommentWithReplies = z.infer<typeof commentWithReplies>;
+export type CommentWithReplies = z.infer<typeof commentWithRepliesSchema>;
 export type NewComment = z.infer<typeof newCommentSchema>;
 
 // export interface Comment {

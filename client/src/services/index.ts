@@ -1,14 +1,14 @@
 import axios from "axios";
 import {
-  commentWithReplies,
-  commentsWithReplies,
+  commentWithRepliesSchema,
+  commentsWithRepliesSchema,
   repliesSchema,
   type NewComment,
 } from "../types";
 
 export const getComments = async () => {
   const { data } = await axios.get("/api/comments");
-  return commentsWithReplies.parse(data);
+  return commentsWithRepliesSchema.parse(data);
 };
 
 export const getMoreReplies = async (commentId: string) => {
@@ -20,5 +20,5 @@ export const getMoreReplies = async (commentId: string) => {
 
 export const createComment = async (newComment: NewComment) => {
   const { data } = await axios.post("/api/comments", { ...newComment });
-  return commentWithReplies.parse(data);
+  return commentWithRepliesSchema.parse(data);
 };
