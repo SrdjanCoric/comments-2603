@@ -2,7 +2,7 @@ import React from "react";
 import AddCommentForm from "./components/AddCommentForm";
 import Comments from "./components/Comments";
 import type { CommentWithReplies, NewComment } from "./types";
-import { createComment, getComments, getMoreReplies } from "./services";
+import { createComment, getComments, getMoreReplies } from "./services/index";
 import { ZodError } from "zod";
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
 
   React.useEffect(() => {
     const fetchComments = async () => {
-      const data = await getComments();
+      const data = await getComments(); // in our test it should resolve to an array of 1 element with name Srdjan
       setComments(data);
     };
     try {

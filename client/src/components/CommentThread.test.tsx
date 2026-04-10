@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
 import CommentThread from "./CommentThread";
-import userEvent from "@testing-library/user-event";
 
 it("show more replies link", async () => {
   const mockComment = {
